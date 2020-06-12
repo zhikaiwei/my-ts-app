@@ -20,6 +20,12 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
+            loader: "babel-loader",
+            options: {
+              cacheDirectory: true
+            }
+          },
+          {
             loader: "ts-loader",
             options: {
               happyPackMode: true,
@@ -33,6 +39,10 @@ module.exports = {
         use: ["style-loader", "css-loader"]
       },
       {
+        test: /\.less$/,
+        use: ["style-loader", "css-loader", "less-loader"]
+      },
+      {
         test: /\.(png|svg|jpg|gif)$/,
         use: ["file-loader"]
       }
@@ -40,12 +50,13 @@ module.exports = {
   },
   resolve: {
     modules: ["node_modules", path.resolve(__dirname, "src")],
-    extensions: [".tsx", ".ts", ".js"]
+    extensions: [".tsx", ".ts", ".js", ".css", ".scss"]
   },
   devServer: {
     contentBase: path.resolve(__dirname, "src"),
     historyApiFallback: true,
     disableHostCheck: true,
+    port: 8000,
     hot: true
   },
   plugins: [
